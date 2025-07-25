@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Print Bot - Mencetak</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🖨️ Sedang Mencetak...</h1>
+
+    <div class="print-info-box">
+      <p>👤 <strong>Nama:</strong> <span id="nama">-</span></p>
+      <p>📄 <strong>File:</strong> <span id="file">-</span></p>
+      <p>📑 <strong>Halaman:</strong> <span id="halaman">-</span></p>
+    </div>
+  </div>
+
+  <!-- Script untuk update tampilan -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const data = JSON.parse(localStorage.getItem("printInfo") || "{}");
+      console.log("[Debug] Data printInfo:", data);
+
+      document.getElementById("nama").textContent = data.nama || "-";
+      document.getElementById("file").textContent = data.file || "-";
+      document.getElementById("halaman").textContent = data.halaman || "-";
+    });
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>

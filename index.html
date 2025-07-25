@@ -1,89 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Status Printer</title>
-  <style>
-    body {
-      margin: 0;
-      background: #1e293b;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    #avatar {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      border: 5px solid white;
-    }
-
-    #statusText {
-      font-size: 2em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .idle {
-      background-color: #64748b;
-    }
-
-    .printing {
-      background-color: #facc15;
-      color: #1f2937;
-    }
-
-    .done {
-      background-color: #4ade80;
-      color: #1f2937;
-    }
-
-    #container {
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    }
-  </style>
+  <title>Print Bot - Siap Menerima Dokumen</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div id="container" class="idle">
-    <img id="avatar" src="avatars/cat3.webp" alt="Avatar" />
-    <div id="statusText">🕒 Tidak ada antrian...</div>
+  <div class="container">
+    <img src="avatars/cat5.gif" alt="Idle Avatar" class="avatar" />
+    <h1>Hai! Cobain aku dong 😊</h1>
+    <p>Scan QR Code untuk mulai menggunakan layanan print</p>
+    <img src="avatars/qrcode.png" alt="QR WhatsApp" class="qr" />
   </div>
-
-  <script>
-    // Simulasi perubahan status
-    const statuses = [
-      { type: "idle", text: "🕒 Tidak ada antrian...", avatar: "avatars/cat1.gif" },
-      { type: "printing", text: "🖨️ Sedang mencetak...", avatar: "avatars/cat2.gif" },
-      { type: "done", text: "✅ Cetak selesai!", avatar: "avatars/done.gif" }
-    ];
-
-    let index = 0;
-
-    function updateStatus() {
-      const status = statuses[index];
-      document.getElementById("statusText").textContent = status.text;
-      document.getElementById("avatar").src = status.avatar;
-
-      const container = document.getElementById("container");
-      container.className = status.type;
-
-      index = (index + 1) % statuses.length;
-    }
-
-    // Simulasikan perubahan status setiap 10 detik
-    setInterval(updateStatus, 10000);
-  </script>
-
+  <script src="app.js"></script>
 </body>
 </html>
