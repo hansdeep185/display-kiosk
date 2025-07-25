@@ -1,8 +1,5 @@
-let socket = null;
-let currentBatch = null;
-
-function connectWebSocket() {
-  socket = new WebSocket("ws://localhost:8081");
+function connectWS() {
+  const socket = new WebSocket("ws://localhost:8081");
 
   socket.onopen = () => {
     console.log("[WS] Connected");
@@ -10,37 +7,60 @@ function connectWebSocket() {
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log("[WS] Data diterima:", data);
+    console.log("[WS] Message received:", data);
 
+    // Simpan data status terakhir ke localStorage
+    localStorage.setItem("printInfo", JSON.stringify(data));
+
+    // Tangani status "printing"
     if (data.status === "printing") {
-      // Kalau batch baru, update tampilan dan localStorage
-      if (currentBatch !== data.nama + data.file) {
-        currentBatch = data.nama + data.file;
-        localStorage.setItem("printInfo", JSON.stringify(data));
-        location.reload(); // Refresh agar tampilan file baru muncul
+      if (!location.href.includes("printing.html")) {
+        window.location.href = "printing.html";
+      } else {
+        // Kalau sudah di printing.html, cukup update isi DOM
+        updatePrintDisplay(data);
       }
+      return;
     }
 
-    else if (data.status === "done") {
-      // Setelah delay 2 detik agar tampilan bisa dilihat dulu
-      setTimeout(() => {
+    // Tangani status "done"
+    if (data.status === "done") {
+      if (!location.href.includes("done.html")) {
         window.location.href = "done.html";
-      }, 2000);
+      }
+
+      // Setelah 20 detik, kembali ke halaman utama
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 20000);
+      return;
     }
 
-    else if (data.status === "idle") {
-      // Fallback jika kosong
-      window.location.href = "index.html";
+    // Tangani status "idle"
+    if (data.status === "idle") {
+      if (!location.href.includes("index.html")) {
+        window.location.href = "index.html";
+      }
     }
   };
 
   socket.onclose = () => {
-    console.warn("[WS] Connection closed. Reconnecting...");
-    setTimeout(connectWebSocket, 2000);
+    console.warn("[WS] Disconnected. Reconnecting in 3s...");
+    setTimeout(connectWS, 3000);
+  };
+
+  socket.onerror = (err) => {
+    console.error("[WS] Error:", err);
+    socket.close();
   };
 }
 
-// Panggil koneksi saat laman dimuat
-window.addEventListener("DOMContentLoaded", () => {
-  connectWebSocket();
-});
+// Fungsi tambahan untuk update tampilan DOM (jika halaman printing.html sedang aktif)
+function updatePrintDisplay(data) {
+  if (!document.getElementById("nama")) return; // Bukan halaman printing
+  document.getElementById("nama").textContent = data.nama || "-";
+  document.getElementById("file").textContent = data.file || "-";
+  document.getElementById("halaman").textContent = data.halaman || "-";
+}
+
+connectWS();
