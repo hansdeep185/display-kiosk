@@ -1,5 +1,8 @@
-function connectWS() {
-  const socket = new WebSocket("ws://localhost:8081");
+let socket = null;
+let currentBatch = null;
+
+function connectWebSocket() {
+  socket = new WebSocket("ws://localhost:8081");
 
   socket.onopen = () => {
     console.log("[WS] Connected");
@@ -7,41 +10,37 @@ function connectWS() {
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log("[WS] Message received:", data);
+    console.log("[WS] Data diterima:", data);
 
     if (data.status === "printing") {
-      localStorage.setItem("printInfo", JSON.stringify(data));
-      if (!location.href.includes("printing.html")) {
-        window.location.href = "printing.html";
+      // Kalau batch baru, update tampilan dan localStorage
+      if (currentBatch !== data.nama + data.file) {
+        currentBatch = data.nama + data.file;
+        localStorage.setItem("printInfo", JSON.stringify(data));
+        location.reload(); // Refresh agar tampilan file baru muncul
       }
     }
 
-    if (data.status === "done") {
-      if (!location.href.includes("done.html")) {
-        window.location.href = "done.html";
-      }
-
+    else if (data.status === "done") {
+      // Setelah delay 2 detik agar tampilan bisa dilihat dulu
       setTimeout(() => {
-        window.location.href = "index.html";
-      }, 20000);
+        window.location.href = "done.html";
+      }, 2000);
     }
 
-    if (data.status === "idle") {
-      if (!location.href.includes("index.html")) {
-        window.location.href = "index.html";
-      }
+    else if (data.status === "idle") {
+      // Fallback jika kosong
+      window.location.href = "index.html";
     }
   };
 
   socket.onclose = () => {
-    console.warn("[WS] Disconnected. Reconnecting in 3s...");
-    setTimeout(connectWS, 3000);
-  };
-
-  socket.onerror = (err) => {
-    console.error("[WS] Error:", err);
-    socket.close();
+    console.warn("[WS] Connection closed. Reconnecting...");
+    setTimeout(connectWebSocket, 2000);
   };
 }
 
-connectWS();
+// Panggil koneksi saat laman dimuat
+window.addEventListener("DOMContentLoaded", () => {
+  connectWebSocket();
+});
