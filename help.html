@@ -1,31 +1,48 @@
+<!-- help.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Print Bot - Petunjuk</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Petunjuk Layanan Print</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease-out both;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <img src="avatars/cat2.gif" alt="Help Avatar" class="avatar" />
-    <h1>📌 Cara Menggunakan Layanan Print</h1>
+<body class="bg-gradient-to-b from-white to-gray-100 text-gray-800 min-h-screen px-4 py-6 sm:px-6 sm:py-10 overflow-auto">
 
-    <div class="instruction-box">
-      <ol>
-        <li>Scan QR Code yang ada di halaman utama, atau <b>WhatsApp ke nomor IT Support</b>.</li>
-        <li>Kirim dokumen yang sudah <b>siap cetak</b> (format .pdf lebih baik).</li>
-        <li>Setelah selesai kirim dokumen, balas dengan pesan: <b>SELESAI</b>.</li>
-        <li>Bot akan merangkum file dan menanyakan konfirmasi. Balas dengan <b>YA</b> untuk mulai cetak.</li>
-        <li>Tunggu notifikasi bahwa cetak sudah selesai.</li>
-      </ol>
-    </div>
+  <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-xl p-6 sm:p-10 space-y-8 fade-in-up">
+    <img src="avatars/cat2.gif" alt="Help Avatar" class="w-28 sm:w-36 mx-auto rounded-full border-4 border-blue-300 shadow" />
 
-    <p class="lokasi">📍 Cetak akan tersedia di <b>Ruang Deespace Lantai 2</b>.</p>
+    <h1 class="text-2xl sm:text-3xl font-bold text-center text-blue-700">📌 Cara Menggunakan Layanan Print</h1>
 
-    <a href="index.html" class="back-link">⬅ Kembali ke Halaman Utama</a>
-    <script src="app.js"></script>
-
+    <ol class="list-decimal pl-6 space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed">
+      <li>
+        <strong>Scan</strong> QR Code di halaman utama atau kirim pesan ke nomor WhatsApp IT Support.
+        <div class="mt-3 flex justify-center">
+          <img src="avatars/WA It Support.png" alt="QR Code WhatsApp" class="w-40 sm:w-52 border border-gray-300 shadow rounded-md" />
+        </div>
+      </li>
+      <li><strong>Kirim</strong> dokumen siap cetak (disarankan format <code>.pdf</code>).</li>
+      <li>Setelah semua file terkirim, balas dengan kata: <strong>SELESAI</strong>.</li>
+      <li>Untuk memulai cetak, balas pesan konfirmasi dengan: <strong>YA</strong>.</li>
+      <li><strong>Tunggu</strong> notifikasi bahwa dokumen Anda selesai dicetak.</li>
+    </ol>
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>

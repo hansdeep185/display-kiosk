@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Print Bot - Mencetak</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <h1>🖨️ Sedang Mencetak...</h1>
+<body class="bg-blue-900 text-white min-h-screen flex flex-col justify-center items-center text-center px-4 py-6 space-y-6">
+  <video src="animation/Print.mp4" autoplay muted loop playsinline class="w-40 sm:w-52 md:w-64 lg:w-72 rounded-full shadow"></video>
+  <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold animate-pulse">🖨️ Sedang Mencetak...</h1>
 
-    <div class="print-info-box">
-      <p>👤 <strong>Nama:</strong> <span id="nama">-</span></p>
-      <p>📄 <strong>File:</strong> <span id="file">-</span></p>
-      <p>📑 <strong>Halaman:</strong> <span id="halaman">-</span></p>
-    </div>
+  <div class="bg-white text-black p-4 sm:p-6 rounded-lg shadow-md w-full max-w-md space-y-2 text-left">
+    <p>👤 <strong>Nama:</strong> <span id="nama">-</span></p>
+    <p>📄 <strong>File:</strong> <span id="file">-</span></p>
+    <p>📑 <strong>Halaman:</strong> <span id="halaman">-</span></p>
   </div>
 
-  <!-- Script untuk update tampilan -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const data = JSON.parse(localStorage.getItem("printInfo") || "{}");
-      console.log("[Debug] Data printInfo:", data);
-
       document.getElementById("nama").textContent = data.nama || "-";
       document.getElementById("file").textContent = data.file || "-";
       document.getElementById("halaman").textContent = data.halaman || "-";
     });
   </script>
-
   <script src="app.js"></script>
 </body>
 </html>
