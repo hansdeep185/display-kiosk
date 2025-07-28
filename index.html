@@ -1,24 +1,35 @@
-<!-- ✅ INDEX.html Responsif & Lebih Interaktif + Gaya Gambar Animator -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Print Bot Display</title>
+  <title>Printingin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* V2 */
     @keyframes typewriter {
-      from { width: 0; }
-      to { width: 100%; }
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
     }
+
     @keyframes blink {
-      50% { border-color: transparent; }
+      50% {
+        border-color: transparent;
+      }
     }
-    .typewriter {
+
+    .typing-loop {
+      display: inline-block;
       overflow: hidden;
       white-space: nowrap;
-      border-right: 3px solid white;
-      animation: typewriter 3s steps(30, end), blink 0.8s step-end infinite;
+      width: 0;
+      animation:
+        typewriter 5s steps(50, end) 1s infinite alternate,
+        blink 0.8s step-end infinite;
     }
 
     @keyframes float {
@@ -50,46 +61,88 @@
       padding: 1.5rem;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .fade-in-thick {
+      animation: fadeInScale 4s ease-out forwards;
+    }
+
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      15% { transform: rotate(14deg); }
+      30% { transform: rotate(-8deg); }
+      45% { transform: rotate(14deg); }
+      60% { transform: rotate(-4deg); }
+      75% { transform: rotate(10deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .wave-hand {
+      display: inline-block;
+      transform-origin: 70% 70%;
+      animation: wave 2s infinite;
+    }
+
+    @keyframes fade-in-right {
+      0% {
+        opacity: 0;
+        transform: translateX(1000px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate-fade-in-right {
+      animation: fade-in-right 1s ease-out forwards;
+    }
+
+    @keyframes blink-color {
+      0%, 100% {
+        color: #fbbf24; /* Kuning */
+      }
+      50% {
+        color: #2c5282; /* Biru tua */
+      }
+    }
+
+    .blinking-text {
+      animation: blink-color 1s ease-in-out infinite;
+    }
   </style>
 </head>
-<body class="animate-bg-gradient min-h-screen w-screen flex flex-col justify-center items-center text-white px-4 py-6 overflow-hidden relative">
+<body class="animate-bg-gradient min-h-screen w-screen flex flex-col justify-center items-center text-white px-4 py-6 overflow-hidden relative animate-fade-in-right">
 
-  <!-- Tag Melayang -->
-  <div class="absolute top-10 left-6 flex flex-col gap-3 animate-float">
-    <div class="px-4 py-1 bg-white text-gray-800 font-bold rounded shadow">HTML</div>
-    <div class="px-4 py-1 bg-white text-gray-800 font-bold rounded shadow">CSS</div>
-    <div class="px-4 py-1 bg-white text-gray-800 font-bold rounded shadow">C++</div>
-  </div>
-
-  <!-- Avatar Lingkaran + Video -->
-  <div class="relative w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-white shadow-lg animate-float-slow">
+  <div class="relative w-95 h-95 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-white shadow-lg fade-in-thick">
     <video src="animation/Print.mp4" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
   </div>
 
-  <!-- Teks Narasi -->
-  <div id="textContainer" class="glass text-center hidden mt-6">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold typewriter">
-      Halo! Saya siap bantu mencetak dokumenmu 🎉
+  <div id="textContainer" class="glass text-center mt-6">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">
+      <span class="blinking-text max-w-[50ch]">
+        Halo <span class="wave-hand">👋</span>,
+        <span class="">Saya siap bantu mencetak dokumenmu !</span>&nbsp;
+      </span>
     </h1>
   </div>
-
-  <!-- QR Code Area -->
-  <div id="qrContainer" class="hidden flex flex-col items-center z-20 mt-6">
-    <div class="glass flex flex-col items-center">
-      <img src="avatars/qrcode.png" alt="QR WA" id="qrImg" class="w-44 sm:w-52 md:w-60 lg:w-64 rounded-lg opacity-0 transition duration-500" />
-      <p class="mt-3 text-yellow-300 text-sm sm:text-base font-semibold">📱 Scan QR ini untuk mulai mencetak!</p>
-    </div>
-  </div>
-
-  <!-- Narasi Bawah -->
-  <div class="mt-8 text-center z-10">
-    <div class="glass inline-block px-4 py-2 animate-pulse">
-      <p class="text-yellow-300 text-sm md:text-base">Kirim file PDF ke WhatsApp lalu balas "SELESAI" untuk mulai cetak.</p>
-    </div>
-  </div>
+  
 
   <script src="app.js"></script>
   <script>
+
     setTimeout(() => {
       document.getElementById("textContainer").classList.remove("hidden");
     }, 2500);
@@ -100,6 +153,14 @@
       qr.classList.remove("hidden");
       qrImg.classList.remove("opacity-0");
     }, 5000);
+
+    // const el = document.querySelector('.typing-loop');
+    // setInterval(() => {
+    //   el.classList.remove('typing-loop');
+    //     void el.offsetWidth;
+    //   el.classList.add('typing-loop');
+    // }, 15000);
+
   </script>
 </body>
 </html>

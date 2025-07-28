@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Print Bot - Selesai</title>
-  <script src="https://cdn.tailwindcss.com"></script>
 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
   <style>
     .fade-in-up {
       animation: fadeInUp 0.8s ease-out both;
@@ -26,8 +27,8 @@
 <body class="bg-gradient-to-b from-green-700 to-green-900 text-white min-h-screen flex flex-col justify-center items-center text-center p-6">
 
   <div class="space-y-6 fade-in-up">
-    <div class="text-6xl sm:text-7xl md:text-8xl mb-4 animate-bounce">✅</div>
-    <img src="avatars/cat3.webp" alt="Done Avatar" class="w-36 sm:w-48 md:w-56 rounded-full shadow-lg border-4 border-white/30 mx-auto" />
+    <img src="avatars/cat3.webp" alt="Done Avatar" class="w-36 sm:w-48 md:w-56 rounded-full shadow-lg border-4 border-white/30 mx-auto"/>
+    <audio src="avatars/haheng.mp3" autoplay loop hidden></audio>
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide">Cetak Selesai!</h1>
     <p class="text-lg sm:text-xl text-white/90">Terima kasih telah menggunakan layanan print kami. 🙏</p>
     <p class="text-sm text-white/60">Anda akan diarahkan kembali ke halaman awal dalam 20 detik...</p>
@@ -35,10 +36,23 @@
 
   <script src="app.js"></script>
   <script>
-    setTimeout(() => {
+     setTimeout(() => {
       console.log("Fallback: Auto-redirect to index after 20s");
       window.location.href = "index.html";
     }, 20000);
+
+    const jsConfetti = new JSConfetti()
+
+    const interval = setInterval(() => {
+      jsConfetti.addConfetti({
+        emojis: ['✨', '✨', '🦋', '💗','💕'],
+        confettiNumber: 80,
+      })
+    }, 2000) // ulang tiap 2 detik
+
+    setTimeout(() => {
+      clearInterval(interval)
+    }, 30000) // stop setelah 30 detik
   </script>
 </body>
 </html>
