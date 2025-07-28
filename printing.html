@@ -8,13 +8,46 @@
 </head>
 <body class="bg-blue-900 text-white min-h-screen flex flex-col justify-center items-center text-center px-4 py-6 space-y-6">
   <video src="animation/Print.mp4" autoplay muted loop playsinline class="w-40 sm:w-52 md:w-64 lg:w-72 rounded-full shadow"></video>
-  <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold animate-pulse">🖨️ Sedang Mencetak...</h1>
+  <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold animate-pulse">Sedang Mencetak...</h1>
 
   <div class="bg-white text-black p-4 sm:p-6 rounded-lg shadow-md w-full max-w-md space-y-2 text-left">
-    <p>👤 <strong>Nama:</strong> <span id="nama">-</span></p>
+    <!-- <p>👤 <strong>Nama:</strong> <span id="nama">-</span></p>
     <p>📄 <strong>File:</strong> <span id="file">-</span></p>
-    <p>📑 <strong>Halaman:</strong> <span id="halaman">-</span></p>
+    <p>📑 <strong>Halaman:</strong> <span id="halaman">-</span></p> -->
+
+    <audio src="avatars/ASMR Tukang bangunan suara gergaji,palu,gerinda (mp3cut.net).mp3" autoplay loop hidden></audio>
+
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full border-collapse">
+        <tbody>
+          <tr>
+            <th class="text-left align-top px-4 py-2 w-32">Name</th>
+            <td class="align-top w-4">:</td>
+            <td class="align-top px-4 py-2">
+              <p id="nama" class="w-full text-left">Parno Panggang</p>
+            </td>
+          </tr>
+          <tr>
+            <th class="text-left align-top px-4 py-2">File</th>
+            <td class="align-top">:</td>
+            <td class="align-top px-4 py-2">
+              <p id="file" class="w-full text-left">dokumen.pdf</p>
+            </td>
+          </tr>
+          <tr>
+            <th class="text-left align-top px-4 py-2">Halaman</th>
+            <td class="align-top">:</td>
+            <td class="align-top px-4 py-2">
+              <p id="halaman" class="w-full text-left">12</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
+
+  
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
